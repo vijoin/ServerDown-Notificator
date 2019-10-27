@@ -1,5 +1,11 @@
 import requests
 from requests.exceptions import ConnectionError
+import argparse
+
+parser = argparse.ArgumentParser(description='Notify if a site is Down!')
+parser.add_argument('-s', '--sites', nargs='+', help="i.e: -s http://127.0.0.1 http://domain.xyz", required=True)
+parser.add_argument('-e', '--emails', nargs='+', help="i.e: -e myemail@domain.xyz myboss@domain.xyz", required=True)
+args = parser.parse_args()
 
 
 def send_notification(emails, site):
@@ -21,6 +27,4 @@ def main(sites, emails):
 
 
 if __name__ == '__main__':
-    sites = ('http://127.0.0.1',)
-    emails = ('a@a.com',)
-    main(sites=sites, emails=emails)
+    main(**vars(args))
