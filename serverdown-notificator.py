@@ -10,13 +10,13 @@ SENDER = EMAIL_ADDRESS
 
 parser = argparse.ArgumentParser(description='Notify if a site is Down!')
 
-# Receive sites and emails via CLI
-parser.add_argument('-s', '--sites', nargs='+', help="i.e: -s http://127.0.0.1 http://domain.xyz")
-parser.add_argument('-e', '--emails', nargs='+', help="i.e: -e myemail@domain.xyz myboss@domain.xyz")
+group_site = parser.add_mutually_exclusive_group()
+group_site.add_argument('-s', '--sites', nargs='+', help="i.e: -s http://127.0.0.1 http://domain.xyz")
+group_site.add_argument('-sf', '--sites-from-file', type=str, help='Pass the sites from a file')
 
-# Receive sites and email from a file
-parser.add_argument('-sf', '--sites-from-file', type=str, help='Pass the sites from a file')
-parser.add_argument('-ef', '--emails-from-file', type=str, help='Pass the emails from a file')
+group_email = parser.add_mutually_exclusive_group()
+group_email.add_argument('-e', '--emails', nargs='+', help="i.e: -e myemail@domain.xyz myboss@domain.xyz")
+group_email.add_argument('-ef', '--emails-from-file', type=str, help='Pass the emails from a file')
 
 args = parser.parse_args()
 
